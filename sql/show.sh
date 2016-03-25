@@ -38,7 +38,16 @@ if grep "RUNNING" ${TEST_BASE}/TEST-0002-show.out > /dev/null ; then
 else
      echo 'NG: RUNNING status is not shown.'
 fi
-sleep 5
+counter=0
+# Wait for backup to finish properly before moving on to next test
+while [[ `pg_arman show -B ${BACKUP_PATH}` == *"RUNNING"* ]]; do
+	if [ $counter -gt 60 ] ; then
+		echo "Backup took too long to finish"
+		exit 1
+    fi
+	sleep 1
+	counter=$(($counter + 1))
+done
 echo ''
 
 echo '###### SHOW COMMAND TEST-0003 ######'
