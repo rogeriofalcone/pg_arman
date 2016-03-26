@@ -44,7 +44,7 @@ while [[ `pg_arman show -B ${BACKUP_PATH}` == *"RUNNING"* ]]; do
 	if [ $counter -gt 60 ] ; then
 		echo "Backup took too long to finish"
 		exit 1
-    fi
+	fi
 	sleep 1
 	counter=$(($counter + 1))
 done
