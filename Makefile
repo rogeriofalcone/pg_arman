@@ -21,7 +21,7 @@ OBJS = backup.o \
 
 DOCS = doc/pg_arman.txt
 
-EXTRA_CLEAN = datapagemap.c datapagemap.h xlogreader.c
+EXTRA_CLEAN = xlogreader.c
 
 # asciidoc and xmlto are present, so install the html documentation and man
 # pages as well. html is part of the vanilla documentation. Man pages need a
@@ -39,7 +39,7 @@ PG_LIBS = $(libpq_pgport)
 
 REGRESS = init option show delete backup restore
 
-all: checksrcdir docs datapagemap.h pg_arman
+all: checksrcdir docs pg_arman
 
 # This rule's only purpose is to give the user instructions on how to pass
 # the path to PostgreSQL source tree to the makefile.
@@ -55,10 +55,6 @@ endif
 # Those files are symlinked from the PostgreSQL sources.
 xlogreader.c: % : $(top_srcdir)/src/backend/access/transam/%
 	rm -f $@ && $(LN_S) $< .
-datapagemap.c: % : $(top_srcdir)/src/bin/pg_rewind/%
-	rm -f $@ && $(LN_S) $< .
-datapagemap.h: % : $(top_srcdir)/src/bin/pg_rewind/%
-	rm -f  && $(LN_S) $< .
 
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
