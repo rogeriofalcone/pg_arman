@@ -866,17 +866,22 @@ prompt_for_password(const char *username)
 {
 	if (password)
 	{
-		free(password);
+		pg_free(password);
 		password = NULL;
 	}
 
 	if (username == NULL)
-		password = simple_prompt("Password: ", 100, false);
+	{
+		password = (char *) pg_malloc(100);
+		simple_prompt("Password: ", password, 100, false);
+
+	}
 	else
 	{
 		char	message[256];
 		snprintf(message, lengthof(message), "Password for user %s: ", username);
-		password = simple_prompt(message, 100, false);
+		password = (char *) pg_malloc(100);
+		simple_prompt(message, password, 100, false);
 	}
 }
 #endif

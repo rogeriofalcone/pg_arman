@@ -361,7 +361,8 @@ excluding values.
 === Restrictions ===
 In order to work, the PostgreSQL instance on which backups are taken need
 to have data checksums enabled or to enable wal_log_hints. pg_arman is
-aimed at working with PostgreSQL 9.5 and newer versions.
+aimed at working with PostgreSQL 10 and newer versions, though support
+for versions newer than 9.5 would be easy enough.
 
 === EXIT CODE ===
 pg_arman returns exit codes for each error status.
